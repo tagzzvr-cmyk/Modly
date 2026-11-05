@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modly | Yeeps Moderator Searcher</title>
+<title>Modly - Yeeps Moderator Searcher</title>
 
 <style>
 * {
@@ -14,153 +15,113 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  color: #fff8ec;
-  background:
-    radial-gradient(ellipse at 10% 15%, #397b62 0 2%, transparent 3%),
-    radial-gradient(ellipse at 90% 25%, #397b62 0 3%, transparent 4%),
-    radial-gradient(ellipse at 15% 85%, #397b62 0 4%, transparent 5%),
-    linear-gradient(140deg, #082f2b, #155b4d);
+  background: #073e36;
+  color: #fff5e9;
 }
-
-.flowers {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  opacity: .45;
-  z-index: -1;
-}
-
-.flower {
-  position: absolute;
-  color: #ffb8ae;
-  font-size: 65px;
-}
-
-.flower:nth-child(1) { top: 5%; left: 5%; }
-.flower:nth-child(2) { top: 25%; right: 7%; color: #fff0d5; }
-.flower:nth-child(3) { bottom: 12%; left: 10%; }
-.flower:nth-child(4) { bottom: 30%; right: 12%; color: #fff0d5; }
-.flower:nth-child(5) { top: 60%; left: 45%; font-size: 35px; }
 
 header {
   text-align: center;
-  padding: 75px 20px 25px;
+  padding: 65px 20px 30px;
 }
 
 .logo {
-  font-size: clamp(60px, 12vw, 105px);
+  font-size: 85px;
   font-weight: 900;
-  letter-spacing: 5px;
   color: #ffb5aa;
-  text-shadow: 4px 5px 0 #754944;
+  text-shadow: 4px 5px #784a45;
+  letter-spacing: 5px;
 }
 
 .subtitle {
-  font-size: 18px;
-  margin-top: 8px;
-  color: #fff0dc;
+  font-size: 19px;
+  color: #fff0d9;
 }
 
 .description {
   max-width: 550px;
-  margin: 22px auto;
+  margin: 20px auto;
   line-height: 1.7;
-  color: #e0eee4;
 }
 
-.search-container {
-  max-width: 680px;
-  padding: 0 20px;
+.search-box {
+  max-width: 650px;
   margin: 35px auto;
+  padding: 0 20px;
 }
 
-#search {
+input {
   width: 100%;
-  padding: 20px 25px;
+  padding: 18px 25px;
   border: 2px solid #ffb5aa;
-  border-radius: 50px;
-  outline: none;
+  border-radius: 40px;
   font-size: 16px;
-  background: #fff8ec;
+  outline: none;
+  background: #fff8ed;
   color: #174d42;
-  box-shadow: 0 8px 25px #0003;
-}
-
-#search:focus {
-  border-color: white;
 }
 
 .results {
   max-width: 750px;
-  padding: 0 20px 60px;
   margin: auto;
+  padding: 0 20px 50px;
 }
 
-.result {
-  background: #174d42;
-  border: 1px solid #548875;
-  border-radius: 17px;
+.card {
+  background: #15574c;
+  border: 1px solid #478575;
+  border-radius: 15px;
   padding: 20px;
-  margin-bottom: 14px;
-  box-shadow: 0 5px 18px #0002;
+  margin-bottom: 15px;
 }
 
-.result h3 {
+.card h3 {
   color: #ffb5aa;
-  margin: 0 0 8px;
+  margin-top: 0;
 }
 
-.result p {
-  color: #e4eee5;
-  margin: 0;
-}
-
-.empty {
-  text-align: center;
-  padding: 30px;
+.flower {
+  position: fixed;
+  font-size: 55px;
   color: #ffb5aa;
+  opacity: .25;
+  z-index: -1;
 }
+
+.flower.one { top: 15px; left: 20px; }
+.flower.two { top: 150px; right: 20px; }
+.flower.three { bottom: 30px; left: 30px; }
+.flower.four { bottom: 100px; right: 30px; }
 
 footer {
   text-align: center;
   padding: 25px;
-  color: #d4e5d9;
-  font-size: 13px;
+  color: #d6e6dc;
 }
 </style>
 </head>
 
 <body>
 
-<div class="flowers">
-  <span class="flower">✿</span>
-  <span class="flower">❀</span>
-  <span class="flower">✿</span>
-  <span class="flower">❀</span>
-  <span class="flower">✿</span>
-</div>
+<div class="flower one">✿</div>
+<div class="flower two">❀</div>
+<div class="flower three">✿</div>
+<div class="flower four">❀</div>
 
 <header>
   <div class="logo">Modly</div>
-
-  <div class="subtitle">
-    ✿ Yeeps Moderator Searcher ✿
-  </div>
+  <p class="subtitle">🌸 Yeeps Moderator Searcher 🌸</p>
 
   <p class="description">
     A tool designed to help Yeeps moderators quickly find
     relevant information and keep moderation organized.
-    Simple, fast, and easy to use.
   </p>
 </header>
 
-<div class="search-container">
+<div class="search-box">
   <input
     id="search"
     type="text"
-    placeholder="Search moderators by username or role..."
-    autocomplete="off"
+    placeholder="Search moderators by name or role..."
   >
 </div>
 
@@ -172,10 +133,10 @@ footer {
 
 <script>
 const moderators = [
-  { name: "ExampleMod1", role: "Senior Moderator" },
-  { name: "ExampleMod2", role: "Moderator" },
-  { name: "ExampleMod3", role: "Junior Moderator" },
-  { name: "ExampleMod4", role: "Support" }
+  {name: "ExampleMod1", role: "Senior Moderator"},
+  {name: "ExampleMod2", role: "Moderator"},
+  {name: "ExampleMod3", role: "Junior Moderator"},
+  {name: "ExampleMod4", role: "Support"}
 ];
 
 const search = document.getElementById("search");
@@ -190,14 +151,13 @@ function displayModerators(query = "") {
   );
 
   if (filtered.length === 0) {
-    results.innerHTML =
-      '<div class="empty">No moderators found ✿</div>';
+    results.textContent = "No moderators found.";
     return;
   }
 
   filtered.forEach(mod => {
     const card = document.createElement("div");
-    card.className = "result";
+    card.className = "card";
 
     const name = document.createElement("h3");
     name.textContent = mod.name;
