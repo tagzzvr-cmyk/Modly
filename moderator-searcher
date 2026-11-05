@@ -1,0 +1,23 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moderator Searcher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🔎 Moderator Searcher</h1>
+    <p>Yeeps moderation search tool</p>
+  </header>
+  <main>
+    <h2>Search Moderators</h2>
+    <input type="text" id="search" placeholder="Search by username or role...">
+    <div id="results"></div>
+  </main>
+  <footer>Moderator Searcher | Yeeps Community</footer>
+  <script src="script.js"></script>
+</body>
+</html>
