@@ -1,44 +1,80 @@
 
-const moderators = [
-  { name: "ExampleMod1", role: "Senior Moderator" },
-  { name: "ExampleMod2", role: "Moderator" },
-  { name: "ExampleMod3", role: "Junior Moderator" },
-  { name: "ExampleMod4", role: "Support" }
-];
-
-const search = document.getElementById("search");
-const results = document.getElementById("results");
-
-function displayModerators(query = "") {
-  results.innerHTML = "";
-
-  const filtered = moderators.filter(mod =>
-    mod.name.toLowerCase().includes(query.toLowerCase()) ||
-    mod.role.toLowerCase().includes(query.toLowerCase())
-  );
-
-  if (filtered.length === 0) {
-    results.textContent = "No moderators found.";
-    return;
-  }
-
-  filtered.forEach(mod => {
-    const card = document.createElement("div");
-    card.className = "result";
-
-    const name = document.createElement("h3");
-    name.textContent = mod.name;
-
-    const role = document.createElement("p");
-    role.textContent = "Role: " + mod.role;
-
-    card.append(name, role);
-    results.appendChild(card);
-  });
+* {
+  box-sizing: border-box;
 }
 
-search.addEventListener("input", () => {
-  displayModerators(search.value);
-});
+body {
+  margin: 0;
+  background: #073e36;
+  font-family: Arial, sans-serif;
+  color: white;
+}
 
-displayModerators();
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.search-area {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 58%;
+  max-width: 850px;
+}
+
+#search {
+  width: 100%;
+  padding: 17px 25px;
+  border: none;
+  border-radius: 50px;
+  background: white;
+  color: #193f39;
+  font-size: 17px;
+  font-weight: 600;
+  outline: none;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+#search:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.3);
+}
+
+.results {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.result {
+  background: #15574c;
+  border: 1px solid #34796b;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+}
+
+.result h3 {
+  color: #ffaaa0;
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .search-area {
+    width: 65%;
+  }
+
+  #search {
+    padding: 9px 13px;
+    font-size: 11px;
+  }
+}
