@@ -1,29 +1,236 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modly | Yeeps Moderator Searcher</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modly | Yeeps Moderator Searcher</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #fff8ed;
+  background:
+    radial-gradient(circle at 10% 20%, #286d5b 0 3%, transparent 4%),
+    radial-gradient(circle at 85% 15%, #174d42 0 8%, transparent 9%),
+    radial-gradient(circle at 80% 85%, #286d5b 0 5%, transparent 6%),
+    linear-gradient(135deg, #082f2b, #155b4d);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "✿  ❀  ✿  ❀  ✿  ❀  ✿";
+  position: fixed;
+  top: 15px;
+  left: 0;
+  width: 100%;
+  color: #f5b5ae;
+  font-size: 38px;
+  letter-spacing: 35px;
+  opacity: .35;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+body::after {
+  content: "❀  ✿  ❀  ✿  ❀  ✿  ❀";
+  position: fixed;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+  color: #fff0d7;
+  font-size: 38px;
+  letter-spacing: 35px;
+  opacity: .25;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+header {
+  text-align: center;
+  padding: 75px 20px 30px;
+}
+
+.logo {
+  font-size: clamp(55px, 10vw, 100px);
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #ffb5aa;
+  text-shadow: 4px 5px 0 #8d514c;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: #f8e8d7;
+  margin-top: 10px;
+}
+
+.description {
+  max-width: 550px;
+  margin: 20px auto;
+  line-height: 1.6;
+  color: #e3eee4;
+}
+
+.search-container {
+  max-width: 650px;
+  margin: 35px auto;
+  padding: 0 20px;
+}
+
+#search {
+  width: 100%;
+  padding: 19px 24px;
+  border: 2px solid #f2b4a9;
+  border-radius: 50px;
+  font-size: 16px;
+  outline: none;
+  background: #fff8ed;
+  color: #174d42;
+  box-shadow: 0 8px 25px #0003;
+}
+
+#search:focus {
+  border-color: white;
+  box-shadow: 0 0 0 4px #f2b4a955;
+}
+
+.results {
+  max-width: 750px;
+  margin: 30px auto;
+  padding: 0 20px 60px;
+}
+
+.result {
+  background: #174d42;
+  border: 1px solid #4d8875;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px #0002;
+  transition: transform .2s;
+}
+
+.result:hover {
+  transform: translateY(-3px);
+}
+
+.result h3 {
+  color: #ffb5aa;
+  margin: 0 0 8px;
+  font-size: 21px;
+}
+
+.result p {
+  margin: 0;
+  color: #e4eee5;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #f5c4ba;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #c8ddd1;
+  font-size: 13px;
+}
+
+@media(max-width: 600px) {
+  header {
+    padding-top: 60px;
+  }
+}
+</style>
 </head>
+
 <body>
-  <main>
-    <section class="hero">
-      <img src="modly-hero.png" alt="Modly - Yeeps Moderator Searcher">
 
-      <div class="search-area">
-        <input
-          type="text"
-          id="search"
-          placeholder="Search for a moderator, senior, or prime..."
-          autocomplete="off"
-        >
-      </div>
-    </section>
+<header>
+  <div class="logo">Modly</div>
 
-    <section id="results" class="results"></section>
-  </main>
+  <div class="subtitle">
+    🌸 Yeeps Moderator Searcher 🌸
+  </div>
 
-  <script src="script.js"></script>
+  <p class="description">
+    A tool designed to help Yeeps moderators quickly find
+    relevant moderator information and keep searches organized.
+    Simple, fast, and easy to use.
+  </p>
+</header>
+
+<div class="search-container">
+  <input
+    id="search"
+    type="text"
+    placeholder="Search for a moderator or role..."
+    autocomplete="off"
+  >
+</div>
+
+<main class="results" id="results"></main>
+
+<footer>
+  Modly · Yeeps Moderator Searcher
+</footer>
+
+<script>
+const moderators = [
+  { name: "ExampleMod1", role: "Senior Moderator" },
+  { name: "ExampleMod2", role: "Moderator" },
+  { name: "ExampleMod3", role: "Junior Moderator" },
+  { name: "ExampleMod4", role: "Support" }
+];
+
+const search = document.getElementById("search");
+const results = document.getElementById("results");
+
+function displayModerators(query = "") {
+  results.innerHTML = "";
+
+  const filtered = moderators.filter(mod =>
+    mod.name.toLowerCase().includes(query.toLowerCase()) ||
+    mod.role.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (filtered.length === 0) {
+    results.innerHTML =
+      '<div class="empty">No moderators found 🌸</div>';
+    return;
+  }
+
+  filtered.forEach(mod => {
+    const card = document.createElement("div");
+    card.className = "result";
+
+    const name = document.createElement("h3");
+    name.textContent = mod.name;
+
+    const role = document.createElement("p");
+    role.textContent = "Role: " + mod.role;
+
+    card.appendChild(name);
+    card.appendChild(role);
+    results.appendChild(card);
+  });
+}
+
+search.addEventListener("input", () => {
+  displayModerators(search.value);
+});
+
+displayModerators();
+</script>
+
 </body>
 </html>
